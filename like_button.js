@@ -1,33 +1,14 @@
-'use strict';
+const root = reactDOM.createRoot(
+  document.getElementById('root')
+);
 
-const e = React.createElement;
-
-class LikeButton extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { liked: false };
-  }
-
-  render() {
-    if (this.state.liked) {
-      return 'You liked comment number ' + this.props.commentID;
-    }
-
-    return e(
-      'button',
-      { onClick: () => this.setState({ liked: true }) },
-      'Like'
-    );
-  }
+function tick() {
+  const element = (
+    <div>
+      <h1>Hello, world!</h1>
+      <h2>It is {new Date().toLocaleTimeString()}.</h2>
+    </div>
+  );
+  root.render(element);
 }
-
-// Find all DOM containers, and render Like buttons into them.
-document.querySelectorAll('.like_button_container')
-  .forEach(domContainer => {
-    // Read the comment ID from a data-* attribute.
-    const commentID = parseInt(domContainer.dataset.commentid, 10);
-    const root = ReactDOM.createRoot(domContainer);
-    root.render(
-      e(LikeButton, { commentID: commentID })
-    );
-  });
+setInterval(tick, 1000);
